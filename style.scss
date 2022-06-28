@@ -5,6 +5,12 @@
   list-style: none;
   text-decoration: none;
 }
+@mixin flexbox($justify: "center", $align: "center", $direction: "row") {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  flex-direction: $direction;
+}
 
 body {
   font-family: "Times New Roman", Times, serif;
@@ -24,9 +30,17 @@ header {
     display: flex;
     top: 0;
     width: 100%;
-    position: absolute;
+    // position: absolute;
+    position: fixed;
     justify-content: space-between;
     padding: 20px;
+    z-index: 99;
+    @media (min-width: 997px) {
+      justify-content: space-between;
+      align-items: center;
+      // padding: 10px;
+      height: 70px;
+    }
     .brand h1 {
       color: white;
       font-weight: 600;
@@ -34,19 +48,50 @@ header {
     .navigation {
       position: absolute;
       background: white;
+      @media (max-width: 600px) {
+        width: 50%;
+      }
+      @media (min-width: 997px) {
+        position: unset;
+        order: 2;
+        width: 50%;
+        height: 80px;
+        padding: 0;
+        // width: 0;
+        flex-direction: row;
+        align-items: center;
+        background-color: transparent;
+        justify-content: flex-end;
+        box-shadow: unset;
+        margin: 0 20px;
+        // width: 0;s
+        // height: 0;
+      }
+
       height: 100vh;
       top: 100%;
-      left: -100%;
+      // left: -100%;
+      left: 0;
       //   border: 1px solid black;
       display: flex;
       justify-content: center;
-      width: 50%;
+      width: 40%;
       padding: 2rem;
       flex-direction: column;
       box-shadow: 10px 0 2px rgba(0, 0, 0, 0.2);
       align-items: stretch;
       gap: 25px;
+      li {
+        @media (min-width: 997px) {
+          display: inline;
+        }
+      }
       li > a {
+        @media (min-width: 997px) {
+          // display: inline;
+          font-size: 1em;
+          color: white;
+        }
         font-size: 1.5em;
         font-weight: 400;
         color: black;
@@ -55,6 +100,9 @@ header {
         color: rgba(0, 0, 0, 0.2);
       }
       .tambahan {
+        @media (min-width: 997px) {
+          display: none;
+        }
         // background: red;
         .Tecno {
           position: absolute;
@@ -77,6 +125,9 @@ header {
       }
     }
     button {
+      @media (min-width: 997px) {
+        display: none;
+      }
       background: transparent;
       border: none;
       color: white;
@@ -122,17 +173,132 @@ header {
 }
 
 main {
-  //   background: red;
-  //   padding: 20px;
+  position: relative;
+
   .main-content {
     margin-top: 2rem;
     padding: 20px 2.5rem;
+    position: relative;
+
     figure {
       margin: 30px 0;
-      //   box-shadow: rgba(0, 0, 0, 0.2);
-      //   background: red;
+      display: none;
       img {
         width: 100%;
+      }
+    }
+    article {
+      margin: 50px 0;
+      max-width: 600px;
+      h1 {
+        padding: 20px 0;
+      }
+    }
+    aside {
+      @media (min-width: 997px) {
+        position: absolute;
+
+        // background-color: red;
+        right: 50px;
+        left: unset;
+        transition: unset;
+        top: 10%;
+        z-index: unset;
+        transform: unset;
+      }
+      // @media (min-width: 1000px) {
+      //   right: 80px;
+      // }
+      // transition: 1s;
+
+      box-shadow: 0 0 10px 2px rgba(5, 2, 2, 0.4);
+      display: flex;
+      border-radius: 10px;
+      padding: 10px;
+      position: fixed;
+      height: 80vh;
+      z-index: 99;
+      background-color: rgb(255, 255, 255);
+      top: 50%;
+      transform: translateY(-50%) translateX(-50%);
+      max-width: 300px;
+      left: 50%;
+      width: 100%;
+      overflow: hidden;
+      .user {
+        // background-color: red;
+        display: flex;
+        position: relative;
+        width: 100%;
+
+        justify-content: center;
+        // overflow-x: hidden;
+        align-items: center;
+        .user-img {
+          background-color: rgb(251, 176, 235);
+          width: 200px;
+          // position: relative;
+          position: absolute;
+          top: 0;
+          overflow: hidden;
+          margin-top: 20px;
+          border: 6px solid rgb(236, 21, 218);
+
+          height: 200px;
+          text-align: center;
+          border-radius: 50%;
+          img {
+            // border: 1px solid black;s
+            // position: absolute;
+            transform: translateX(2%) translateY(10%);
+            // transform: ;
+          }
+        }
+        .user-info {
+          // background-color: red;
+          width: 100%;
+          padding: 0 10px;
+          margin-top: 100px;
+        }
+        .user-info::before {
+          content: "";
+          position: absolute;
+          width: 250px;
+          height: 250px;
+          background-color: rgb(251, 176, 235);
+          transform: rotate(45deg);
+          top: 80%;
+          right: -10px;
+        }
+      }
+      button {
+        position: absolute;
+        right: 20px;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        color: rgba(0, 0, 0, 0.2);
+        @media (min-width: 997px) {
+          display: none;
+        }
+      }
+      button:hover {
+        color: rgba(0, 0, 0, 1);
+      }
+    }
+    @media (max-width: 997px) {
+      aside[data-visible="false"] {
+        opacity: 0;
+        // display: none;
+        // transition: 1s;
+        top: -200%;
+      }
+      aside[data-visible="true"] {
+        transition: 1s;
+        opacity: 1;
+        // display: flex;
+        top: 51%;
       }
     }
   }
