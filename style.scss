@@ -5,6 +5,7 @@
   list-style: none;
   text-decoration: none;
 }
+$primary-color: #006eff;
 @mixin flexbox($justify: "center", $align: "center", $direction: "row") {
   display: flex;
   justify-content: $justify;
@@ -26,7 +27,7 @@ header {
   height: 100vh;
   //   background-color: aqua;
   nav {
-    background: rgb(251, 176, 235);
+    background: $primary-color;
     display: flex;
     top: 0;
     width: 100%;
@@ -70,6 +71,7 @@ header {
 
       height: 100vh;
       top: 100%;
+      transition: 0.7s;
       // left: -100%;
       left: 0;
       //   border: 1px solid black;
@@ -118,7 +120,7 @@ header {
             color: black;
           }
           li a:hover {
-            color: rgb(236, 21, 218);
+            color: $primary-color;
             transform: scale(1.2);
           }
         }
@@ -134,21 +136,43 @@ header {
       outline: none;
       cursor: pointer;
     }
+    @media (max-width: 997px) {
+      .navigation[data-visible="false"] {
+        left: -100%;
+      }
+      .navigation[data-visible="true"] {
+        left: 0;
+      }
+    }
   }
   .header-content {
     // background: red;
     margin-top: 2rem;
     width: 100%;
     padding: 2rem;
+    position: relative;
     display: flex;
     // justify-content: space-between;
     align-items: center;
     justify-content: center;
     text-align: center;
+    @media (min-width: 997px) {
+      justify-content: space-between;
+    }
+    .wave {
+      position: absolute;
+      top: -152px;
+      left: 0;
+    }
     .header-img {
       max-width: 600px;
       display: none;
+
+      @media (min-width: 997px) {
+        display: block;
+      }
       img {
+        transform: rotateY(-180deg);
         width: 100%;
       }
     }
@@ -160,7 +184,7 @@ header {
         font-family: Arial, Helvetica, sans-serif;
       }
       span {
-        color: #fbb0eb;
+        color: $primary-color;
       }
       p {
         padding: 20px 0;
@@ -235,7 +259,7 @@ main {
         // overflow-x: hidden;
         align-items: center;
         .user-img {
-          background-color: rgb(251, 176, 235);
+          background-color: $primary-color;
           width: 200px;
           // position: relative;
           position: absolute;
@@ -265,7 +289,7 @@ main {
           position: absolute;
           width: 250px;
           height: 250px;
-          background-color: rgb(251, 176, 235);
+          background-color: $primary-color;
           transform: rotate(45deg);
           top: 80%;
           right: -10px;
@@ -290,14 +314,11 @@ main {
     @media (max-width: 997px) {
       aside[data-visible="false"] {
         opacity: 0;
-        // display: none;
-        // transition: 1s;
         top: -200%;
       }
       aside[data-visible="true"] {
         transition: 1s;
         opacity: 1;
-        // display: flex;
         top: 51%;
       }
     }
